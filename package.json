@@ -1,0 +1,72 @@
+{
+	"name": "timewalk-vscode",
+	"displayName": "timewalk-vscode",
+	"description": "Track and Control your coding statistics completely",
+	"version": "0.0.1",
+	"license": "MIT",
+	"author": {
+		"name": "Desmond Zhenyuan Liu"
+	},
+	"engines": {
+		"vscode": "^1.41.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "timewalk.debug",
+				"title": "TimeWalk: Debug"
+			},
+			{
+				"command": "timewalk.statusBarEnabled",
+				"title": "TimeWalk: Enable/Disble Status Bar Information"
+			},
+			{
+				"command": "timewalk.reportPage",
+				"title": "TimeWalk: Show Today Coding Report"
+			},
+			{
+				"command": "timewalk.configFile",
+				"title": "TimeWalk: Open Core Config File"
+			},
+			{
+				"command": "timewalk.logFile",
+				"title": "TimeWalk: Open Log File"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/adm-zip": "^0.4.32",
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.11.7",
+		"@types/request": "^2.48.4",
+		"@types/rimraf": "^2.0.3",
+		"@types/vscode": "^1.41.0",
+		"@types/webpack": "^4.41.1",
+		"@types/fs-extra": "^8.1.0",
+		"adm-zip": "^0.4.13",
+		"glob": "^7.1.5",
+		"mocha": "^6.2.2",
+		"request": "^2.88.0",
+		"rimraf": "^3.0.0",
+		"fs-extra": "^8.1.0",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4",
+		"vscode-test": "^1.2.2",
+		"webpack": "^4.41.5"
+	}
+}

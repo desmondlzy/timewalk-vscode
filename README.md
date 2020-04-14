@@ -1,18 +1,25 @@
-timewalk-vscode
+TimeWalk-VSCode
 =================
 
-This is the vscode plugin for TimeWalk, a software that helps you keep track of your coding statistics.
+TimeWalk-VSCode provides you with coding statistics tracking. You may easily get the metrics of your coding activity including
 
-## Features
+- Languages
+- Projects
+- Other categories by extending TimeWalk
 
-Track your coding activities. All the computation is done locally and 
-you will have full control of your own data and stats. Your don't need to pay to get your own stats.
+TimeWalk is free and extensible! Using TimeWalk,
 
-## Release Notes
+- Users may not pay to get their stats
+- Users may not sign up for a account and send their stats to a server
+- Users may customize TimeWalk to tailor it to your needs.
 
-### 0.0.0
+Usage
+--------
+After installation, code for a while. Then you can
 
-Unreleased
+Press `F1` or `Ctrl + Shift + P` and type in the command `TimeWalk: Show Today Report`, then `Enter`. Voila, here is your report.
+
+Placeholder: image here
 
 
 -----------------------------------------------------------------------------------------------------

@@ -4,6 +4,7 @@
 	"description": "Track and Control your coding statistics completely",
 	"version": "0.0.1",
 	"license": "MIT",
+	"publisher": "desmondlzy",
 	"author": {
 		"name": "Desmond Zhenyuan Liu"
 	},
@@ -29,7 +30,7 @@
 			},
 			{
 				"command": "timewalk.reportPage",
-				"title": "TimeWalk: Show Today Coding Report"
+				"title": "TimeWalk: Show Today Report"
 			},
 			{
 				"command": "timewalk.configFile",

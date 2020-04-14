@@ -73,7 +73,7 @@ export class TimeWalk {
       if (newVal === null || newVal === undefined) { return; }
 
       this.configs.verbose = newVal === 'true';
-      saveConfigs(this.configs);
+      this.safeSaveConfigs();
 
       if (this.configs.verbose) {
         this.logger.setLevel(LogLevel.DEBUG);
@@ -99,7 +99,7 @@ export class TimeWalk {
 
       this.configs.showStatusBar = pick === 'true';
       this.showStatusBar = this.configs.showStatusBar;
-      saveConfigs(this.configs);
+      this.safeSaveConfigs();
 
       if (this.configs.showStatusBar) {
         this.statusBar.show();
@@ -319,7 +319,7 @@ export class TimeWalk {
     let newVal = await vscode.window.showInputBox(promptOptions);
     if (newVal && newVal !== oldVal) {
       this.configs.proxy = newVal;
-      saveConfigs(this.configs);
+      this.safeSaveConfigs();
     }
   }
 

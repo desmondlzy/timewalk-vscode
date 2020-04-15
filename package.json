@@ -2,7 +2,7 @@
 	"name": "timewalk-vscode",
 	"displayName": "TimeWalk-VSCode",
 	"description": "Report your coding time and metrics",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"license": "MIT",
 	"publisher": "desmondlzy",
 	"author": {
@@ -56,7 +56,7 @@
 		"webpack": "webpack --mode development",
 		"webpack-dev": "webpack --mode development --watch",
 		"compile": "webpack --mode none",
-        "compile:dev": "tsc -p ./"
+		"compile:dev": "tsc -p ./"
 	},
 	"dependencies": {
 		"request": "^2.88.2",

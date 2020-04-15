@@ -1,4 +1,5 @@
 out
+dist
 node_modules
 src/test/
 timewalk-core/
@@ -6,5 +7,4 @@ timewalk-core-master/
 .vscode-test/
 .vscode/
 *.vsix
-CHANGELOG.md
 package-lock.json

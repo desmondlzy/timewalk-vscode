@@ -266,27 +266,24 @@ export class Dependencies {
   }
 
   private async installPython(): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-      if (Dependencies.isWindows()) {
-        let ver = '3.8.1';
-        let arch = (os.arch().indexOf('x64') > -1) ? 'amd64' : 'win32';
-        let url = `https://www.python.org/ftp/python/${ver}/python-${ver}-embed-${arch}.zip`;
+    if (Dependencies.isWindows()) {
+      let ver = '3.8.1';
+      let arch = (os.arch().indexOf('x64') > -1) ? 'amd64' : 'win32';
+      let url = `https://www.python.org/ftp/python/${ver}/python-${ver}-embed-${arch}.zip`;
 
-        this.logger.debug('Downloading python...');
-        let zipFile = path.join(this.extensionPath, 'python.zip');
-        this.downloadFile(url, zipFile);
+      this.logger.debug('Downloading python...');
+      let zipFile = path.join(this.extensionPath, 'python.zip');
+      this.downloadFile(url, zipFile);
 
-        this.logger.debug('Extracting python...');
-        await this.unzip(zipFile, path.join(this.extensionPath, 'python'));
-        this.logger.debug('Finished installing python.');
-      } else {
-        let errMsg =
-          'TimeWalk depends on Python. Install it from https://python.org/downloads then restart VS Code';
-        this.logger.warn(errMsg);
-        vscode.window.showWarningMessage(errMsg);
-      }
-      resolve();
-    });
+      this.logger.debug('Extracting python...');
+      await this.unzip(zipFile, path.join(this.extensionPath, 'python'));
+      this.logger.debug('Finished installing python.');
+    } else {
+      let errMsg =
+        'TimeWalk requires Python 3.5+. Install it from https://python.org/downloads then restart VS Code';
+      this.logger.warn(errMsg);
+      vscode.window.showWarningMessage(errMsg);
+    }
   }
 
   private isSupportedPythonVersion(binary: string, versionString: string): boolean {

@@ -39,9 +39,7 @@ export class TimeWalk {
   }
 
   public async initialize(): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-
-      let extension = vscode.extensions.getExtension('TimeWalk.timewalk-vscode');
+      let extension = vscode.extensions.getExtension('desmondlzy.timewalk-vscode');
       this.extension = (extension !== undefined && extension.packageJSON) || { version: '0.0.1' };
       this.logger.debug(`Initializing TimeWalk v${this.extension && this.extension.version}`);
       this.agentName = 'vscode';
@@ -53,12 +51,10 @@ export class TimeWalk {
       this.logger.debug('Initialized');
       this.statusBar.text = '$(clock)';
       this.statusBar.tooltip = 'TimeWalk: Initialized';
-
       this.statusBar.show();
+
       this.getCodingActivity();
       this.setupEventListeners();
-    });
-
   }
 
   public async promptForDebug(): Promise<void> {
@@ -111,16 +107,18 @@ export class TimeWalk {
     });
   }
 
-  public async getReport(): Promise<string> {
+  public async getReport(start?: number, end?: number): Promise<string> {
     return new Promise<string>(async (resolve, reject) => {
       let pythonBinary = await this.dependencies.getPythonLocation();
       if (pythonBinary === null) { resolve(); return; }
 
       let core = this.dependencies.getCoreLocation();
-      let startOfToday = new Date().setHours(0, 0, 0, 0) / 1000;
-      let args = [core, 'report', '--start-time', startOfToday.toString()];
+      
+      const startStr = Math.round(start || 0).toString();
+      const endStr   = Math.round(end   || Date.now() / 1000).toString();
+      let args: string[] = [core, 'report', '--start-time', startStr, '--end-time', endStr];
 
-      this.logger.debug(`Gathering report from core`);
+      this.logger.debug(`Gathering report from core, time range ${startStr} - ${endStr}`);
 
       let process = child_process.execFile(pythonBinary, args, (error, stdout, stderr) => {
         if (error !== null) {
@@ -150,6 +148,27 @@ export class TimeWalk {
       });
     });
   }
+  
+  public async promptReportTimeRange(): Promise<number> {
+    let opt = {
+      placeHolder: 'Please select the range of your coding report',
+      canPickMany: false,
+      ignoreFocusOut: true
+    };
+    let items = ['today', '3-day', '5-day', '7-day', '14-day'];
+    let choice = await vscode.window.showQuickPick(items, opt);
+
+    let startOfToday = new Date().setHours(0, 0, 0, 0) / 1000;
+    let oneDay = 24 * 60 * 60;
+    switch (choice) {
+      case 'today': return startOfToday;
+      case '3-day': return startOfToday - oneDay * 3;
+      case '5-day': return startOfToday - oneDay * 5;
+      case '7-day': return startOfToday - oneDay * 7;
+      case '14-day': return startOfToday - oneDay * 14;
+      default: return startOfToday;
+    }
+  }
 
   public async openReportPage(): Promise<void> {
     let reqTime = Date.now();
@@ -158,8 +177,6 @@ export class TimeWalk {
 
     let doc = await vscode.workspace.openTextDocument(uri);
     await vscode.window.showTextDocument(doc, { preview: false });
-    console.log(vscode.window.activeTextEditor);
-    let sourceEditor = vscode.window.activeTextEditor;
     await vscode.commands.executeCommand('markdown.showPreview');
     return;
   }

@@ -21,7 +21,7 @@ var logger = new Logger(LogLevel.INFO);
 var timewalk: TimeWalk;
 
 export async function activate(ctx: vscode.ExtensionContext) {
-  logger.info("TimeWalk VSCode starts");
+  logger.info("TimeWalk-VSCode starts");
 
   let configs = await newConfigs();
   timewalk = new TimeWalk(ctx.extensionPath, logger, configs);
@@ -31,7 +31,9 @@ export async function activate(ctx: vscode.ExtensionContext) {
     onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
     onDidChange = this.onDidChangeEmitter.event;
     async provideTextDocumentContent(uri: vscode.Uri): Promise<string> {
-      return await timewalk.getReport();
+      let test = uri.path;
+      let start = await timewalk.promptReportTimeRange();
+      return await timewalk.getReport(start);
     }
   };
 

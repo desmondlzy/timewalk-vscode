@@ -31,7 +31,6 @@ export async function activate(ctx: vscode.ExtensionContext) {
     onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
     onDidChange = this.onDidChangeEmitter.event;
     async provideTextDocumentContent(uri: vscode.Uri): Promise<string> {
-      let test = uri.path;
       let start = await timewalk.promptReportTimeRange();
       return await timewalk.getReport(start);
     }

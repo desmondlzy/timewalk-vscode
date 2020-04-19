@@ -2,7 +2,7 @@
 	"name": "timewalk-vscode",
 	"displayName": "TimeWalk-VSCode",
 	"description": "Report your coding time and metrics",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"license": "MIT",
 	"publisher": "desmondlzy",
 	"author": {

@@ -14,7 +14,7 @@ export function getTimewalkHome(): string {
   return path.join(getUserHomeDir(), DIRNAME_HOME);
 }
 
-export function getInvokerConfigsPath(): string {
+export function getInvokerConfigFile(): string {
   return path.join(getTimewalkHome(), FILENAME_INVOKER_CONFIG);
 }
 

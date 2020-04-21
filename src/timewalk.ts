@@ -4,7 +4,7 @@ import * as child_process from 'child_process';
 import { Dependencies } from './dependencies';
 import { COMMAND_REPORT_PAGE, LogLevel } from './constants';
 import { Configs, saveConfigs } from './configs';
-import { Logger } from './logger';
+import { Logger, logger } from './logger';
 import * as utils from './utils';
 
 export class TimeWalk {
@@ -183,6 +183,16 @@ export class TimeWalk {
 
   public openCoreConfigFile(): void {
     let path = utils.getCoreConfigFile();
+    if (path) {
+      let uri = vscode.Uri.file(path);
+      vscode.window.showTextDocument(uri).then(doc => {
+        doc.viewColumn = vscode.ViewColumn.Beside;
+      });
+    }
+  }
+
+  public openInvokerConfigFile(): void {
+    let path = utils.getInvokerConfigFile();
     if (path) {
       let uri = vscode.Uri.file(path);
       vscode.window.showTextDocument(uri).then(doc => {

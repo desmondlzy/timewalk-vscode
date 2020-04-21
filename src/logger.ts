@@ -41,3 +41,5 @@ export class Logger {
     this.log(LogLevel.ERROR, msg);
   }
 }
+
+export const logger = new Logger(LogLevel.INFO);

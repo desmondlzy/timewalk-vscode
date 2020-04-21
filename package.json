@@ -40,7 +40,11 @@
 				"title": "TimeWalk: Show Report"
 			},
 			{
-				"command": "timewalk.configFile",
+				"command": "timewalk.invokerConfig",
+				"title": "TimeWalk: Open Invoker Config File"
+			},
+			{
+				"command": "timewalk.coreConfig",
 				"title": "TimeWalk: Open Core Config File"
 			},
 			{
@@ -50,7 +54,7 @@
 		]
 	},
 	"scripts": {
-		"watch": "webpack --mode none --watch",
+		"watch": "webpack --mode development --watch",
 		"test": "node ./out/test/runTest.js",
 		"vscode:prepublish": "webpack --mode production",
 		"webpack": "webpack --mode development",

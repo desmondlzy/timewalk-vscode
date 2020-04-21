@@ -1,5 +1,7 @@
 import * as fse from 'fs-extra';
 import * as utils from './utils';
+import { logger } from './logger';
+import * as vscode from 'vscode';
 
 export interface Configs {
   verbose: boolean;
@@ -26,7 +28,7 @@ function combineDefaults(configs: Object): Configs {
 
 export async function newConfigs(): Promise<Configs> {
   try {
-    const filename = utils.getInvokerConfigsPath();
+    const filename = utils.getInvokerConfigFile();
     let existed = await fse.pathExists(filename);
     if (existed) {
       let configs = readConfigs(filename);
@@ -41,9 +43,9 @@ export async function newConfigs(): Promise<Configs> {
 }
 
 export async function saveConfigs(configs: Configs): Promise<void> {
+  const filename = utils.getInvokerConfigFile();
   try {
-    const filename = utils.getInvokerConfigsPath();
-    fse.outputJSON(filename, configs);
+    fse.outputJSON(filename, configs, { spaces: 4 });
   } catch (err) {
     throw err;
   }
@@ -54,6 +56,9 @@ async function readConfigs(filename: string): Promise<Configs> {
     const json = await fse.readJson(filename);
     return combineDefaults(json);
   } catch (err) {
-    throw err;
+    const msg = `Error reading configs from ${filename}, resort to defaults. ${err}`;
+    logger.warn(msg);
+    vscode.window.showWarningMessage(msg);
+    return defaultConfigs;
   }
 }

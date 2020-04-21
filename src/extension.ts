@@ -7,17 +7,16 @@ import * as vscode from 'vscode';
 import {
   COMMAND_DEBUG,
   COMMAND_STATUS_BAR_ENABLED,
-  COMMAND_STATUS_BAR_CODING_ACTIVITY,
+  COMMAND_INVOKER_CONFIG_FILE,
+  COMMAND_CORE_CONFIG_FILE,
   COMMAND_REPORT_PAGE,
-  COMMAND_CONFIG_FILE,
   COMMAND_LOG_FILE,
   LogLevel,
 } from './constants';
-import { Logger } from './logger';
+import { logger } from './logger';
 import { Configs, newConfigs } from './configs';
 import { TimeWalk } from './timewalk';
 
-var logger = new Logger(LogLevel.INFO);
 var timewalk: TimeWalk;
 
 export async function activate(ctx: vscode.ExtensionContext) {
@@ -59,8 +58,14 @@ export async function activate(ctx: vscode.ExtensionContext) {
   );
 
   ctx.subscriptions.push(
-    vscode.commands.registerCommand(COMMAND_CONFIG_FILE, function() {
+    vscode.commands.registerCommand(COMMAND_CORE_CONFIG_FILE, function() {
       timewalk.openCoreConfigFile();
+    }),
+  );
+
+  ctx.subscriptions.push(
+    vscode.commands.registerCommand(COMMAND_INVOKER_CONFIG_FILE, function() {
+      timewalk.openInvokerConfigFile();
     }),
   );
 
